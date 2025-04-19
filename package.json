@@ -1,0 +1,26 @@
+{
+  "name": "neoncore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OReapersage/neoncore.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OReapersage/neoncore/issues"
+  },
+  "homepage": "https://github.com/OReapersage/neoncore#readme",
+  "description": "",
+  "devDependencies": {
+    "electron": "^35.2.0",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9.25.0",
+    "jest": "^29.7.0"
+  }
+}
