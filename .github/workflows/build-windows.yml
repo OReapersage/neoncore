@@ -30,9 +30,11 @@ jobs:
         run: npm run dist:win
 
       # Signing skipped for now
+      # - name: Sign Installer
+      #   run: signtool sign /a /f ${{ secrets.CODE_SIGN_CERT }} "dist/NeonCore Setup*.exe"
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
-          name: "NeonCore-Windows"
-          path: "dist/*.exe"
+          name: NeonCore-Windows
+          path: dist/*.exe
