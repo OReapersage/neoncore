@@ -1,0 +1,37 @@
+name: Build & Release (Windows)
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Lint & Tests
+        run: |
+          npm run lint
+          npm test
+
+      - name: Build App
+        run: npm run dist:win  # electron-builder --win --x64
+
+      - name: Sign Installer
+        run: signtool sign /a /f ${{ secrets.CODE_SIGN_CERT }} dist/NeonCore\\ Setup*.exe
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: NeonCore-Windows
+          path: dist/*.exe
