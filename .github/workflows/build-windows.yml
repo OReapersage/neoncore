@@ -20,25 +20,34 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        shell: pwsh
 
       - name: Run lint and tests
         run: |
           npm run lint
           npm test
+        shell: pwsh
 
       - name: Build Windows App
         run: npm run dist:win
+        shell: pwsh
 
       - name: Ensure dist folder exists and add placeholder if empty
+        shell: pwsh
         run: |
-          if [ ! -d dist ]; then mkdir dist; fi
-          if [ -z "$(ls -A dist)" ]; then echo "placeholder" > dist/placeholder.txt; fi
+          if (!(Test-Path -Path dist)) {
+            New-Item -ItemType Directory -Path dist | Out-Null
+          }
+          if ((Get-ChildItem -Path dist | Measure-Object).Count -eq 0) {
+            '<placeholder>' | Out-File dist\placeholder.txt
+          }
 
       - name: List dist folder
-        run: dir dist
+        shell: pwsh
+        run: Get-ChildItem -Path dist
 
       - name: Upload dist artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: neoncore-dist
-          path: dist/**
+          path: dist
