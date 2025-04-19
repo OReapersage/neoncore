@@ -26,15 +26,15 @@ jobs:
           npm run lint
           npm test
 
-      - name: Build Windows App
+        - name: Build Windows App
         run: npm run dist:win
 
-      # Signing skipped for now
-      # - name: Sign Installer
-      #   run: signtool sign /a /f ${{ secrets.CODE_SIGN_CERT }} "dist/NeonCore Setup*.exe"
+      - name: List dist folder
+        run: dir dist
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: NeonCore-Windows
-          path: dist/*.exe
+          path: |
+            dist/**
