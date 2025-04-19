@@ -4,15 +4,11 @@ on:
   push:
     tags:
       - 'v*.*.*'
-  workflow_dispatch:    # <— allows manual runs from the Actions UI
-
-on:
-  push:
-    tags:
-      - 'v*.*.*'
+  workflow_dispatch:
 
 jobs:
   build-windows:
+    …
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
