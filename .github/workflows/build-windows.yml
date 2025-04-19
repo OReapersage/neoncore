@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*.*.*'
+  workflow_dispatch:    # <— allows manual runs from the Actions UI
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build-windows:
