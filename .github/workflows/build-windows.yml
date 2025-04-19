@@ -8,10 +8,10 @@ on:
 
 jobs:
   build-windows:
-    …
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -21,16 +21,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Lint & Tests
+      - name: Run lint and tests
         run: |
           npm run lint
           npm test
 
-      - name: Build App
-        run: npm run dist:win  # electron-builder --win --x64
+      - name: Build Windows App
+        run: npm run dist:win
 
+      # Signing skipped for now
       # - name: Sign Installer
-      #   run: signtool sign /a /f ${{ secrets.CODE_SIGN_CERT }} dist/NeonCore\ Setup*.exe
+      #   run: signtool sign /a /f ${{ secrets.CODE_SIGN_CERT }} "dist/NeonCore Setup*.exe"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
