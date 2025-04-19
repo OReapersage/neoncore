@@ -29,11 +29,16 @@ jobs:
       - name: Build Windows App
         run: npm run dist:win
 
+      - name: Ensure dist folder exists and add placeholder if empty
+        run: |
+          if [ ! -d dist ]; then mkdir dist; fi
+          if [ -z "$(ls -A dist)" ]; then echo "placeholder" > dist/placeholder.txt; fi
+
       - name: List dist folder
         run: dir dist
 
       - name: Upload dist artifacts
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v3
         with:
           name: neoncore-dist
-          path: dist/**/*
+          path: dist/**
