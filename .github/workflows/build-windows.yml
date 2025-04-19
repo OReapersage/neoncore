@@ -32,9 +32,8 @@ jobs:
       - name: List dist folder
         run: dir dist
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+      - name: Upload dist artifacts
+        uses: actions/upload-artifact@v3
         with:
-          name: NeonCore-Windows
-          path: |
-            dist/**
+          name: dist
+          path: dist
